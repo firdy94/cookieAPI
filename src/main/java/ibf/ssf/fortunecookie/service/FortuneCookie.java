@@ -1,5 +1,12 @@
 package ibf.ssf.fortunecookie.service;
 
+import java.security.SecureRandom;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.stereotype.Service;
+
+@Service
 public class FortuneCookie {
 	public static final String[] COOKIES = { "With integrity and consistency -- your credits are piling up.",
 			"Reach out your hand today to support others who need you.",
@@ -251,4 +258,19 @@ public class FortuneCookie {
 			"If at first you do not succeed... try something harder.",
 			"Your good listening skills will open many doors.",
 			"Two people shorten a road." };
+
+	public String getCookie() {
+		SecureRandom secRandom = new SecureRandom();
+		return COOKIES[secRandom.nextInt(COOKIES.length)];
+	}
+
+	public Set<String> getCookies(Integer num) {
+		assert (num > 0);
+		Set<String> gotCookies = new HashSet<>();
+		while (gotCookies.size() < num) {
+			gotCookies.add(getCookie());
+		}
+		return gotCookies;
+	}
+
 }
